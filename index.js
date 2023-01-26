@@ -9,27 +9,23 @@ const managerCreated = false;
 let engineerArr = [];
 let internArr = [];
 
-const init = async () => {
-  let typeOfEmployeeFlag = "";
-  const minimumInfoPrompt = await inquirer.prompt([
+const managerPromptInit = async () => {
+  const managerInformationPrompt = await inquirer.prompt([
     {
       type: "input",
-      message: "What is this employee's name?",
-      name: "employeeName",
+      message: "What is the manager's name?",
+      name: "managerName",
     },
     {
       type: "number",
-      message: "What is this employee's ID?",
-      name: "employeeId",
+      message: "What is the manager's employee ID?",
+      name: "managerId",
     },
     {
       type: "input",
-      message: "What is this employee's email?",
-      name: "employeeEmail",
+      message: "What is the manager's email?",
+      name: "managerEmail",
     },
-  ]);
-
-  const managerInformationPrompt = await inquirer.prompt([
     {
       type: "number",
       message: "What is the office number for this manager?",
@@ -37,13 +33,21 @@ const init = async () => {
     },
   ]);
   const buildManager = await new Manager(
-    minimumInfoPrompt.employeeName,
-    minimumInfoPrompt.employeeId,
-    minimumInfoPrompt.employeeEmail,
+    managerInformationPrompt.managerName,
+    managerInformationPrompt.managerId,
+    managerInformationPrompt.managerEmail,
     managerInformationPrompt.officeNumber
   );
   console.log(buildManager);
+  init();
+};
 
+const init = async () => {
+  let typeOfEmployeeFlag = "";
+
+  console.log(
+    "The following lines will prompt you for employees you would like to add to your team."
+  );
   const initPrompt = await inquirer.prompt([
     {
       type: "list",
@@ -52,6 +56,9 @@ const init = async () => {
       name: "employeeType",
     },
   ]);
+
+  //   const minimumInfoPrompt = await inquirer.prompt([]);
+
   typeOfEmployeeFlag = initPrompt.employeeType;
   console.log(`Employee type chosen is ${typeOfEmployeeFlag}.`);
 
@@ -59,6 +66,21 @@ const init = async () => {
     case "Engineer":
       // run prompt for engineer related questionsa and build engineer obj
       const engineerInfoPrompt = await inquirer.prompt([
+        {
+          type: "input",
+          message: "What is this engineer's name?",
+          name: "engineerName",
+        },
+        {
+          type: "number",
+          message: "What is this engineer's ID?",
+          name: "engineerId",
+        },
+        {
+          type: "input",
+          message: "What is this engineer's email?",
+          name: "engineerEmail",
+        },
         {
           type: "input",
           message: "What is this engineer's github username?",
@@ -71,20 +93,35 @@ const init = async () => {
         },
       ]);
       const buildEngineer = new Engineer(
-        minimumInfoPrompt.employeeName,
-        minimumInfoPrompt.employeeId,
-        minimumInfoPrompt.employeeEmail,
+        engineerInfoPrompt.engineerName,
+        engineerInfoPrompt.engineerId,
+        engineerInfoPrompt.engineerEmail,
         engineerInfoPrompt.engineerGithub
       );
       engineerArr.push(buildEngineer);
       console.log(engineerArr);
       if (engineerInfoPrompt.confirmBool == true) {
-        initPrompt();
+        init();
       }
       break;
     case "Intern":
       // run prompt for intern related questions and build intern obj
       const internInfoPrompt = await inquirer.prompt([
+        {
+          type: "input",
+          message: "What is this intern's name?",
+          name: "internName",
+        },
+        {
+          type: "number",
+          message: "What is this intern's ID?",
+          name: "internId",
+        },
+        {
+          type: "input",
+          message: "What is this intern's email?",
+          name: "internEmail",
+        },
         {
           type: "input",
           message: "What is this intern's school?",
@@ -97,15 +134,15 @@ const init = async () => {
         },
       ]);
       const buildIntern = new Intern(
-        minimumInfoPrompt.employeeName,
-        minimumInfoPrompt.employeeId,
-        minimumInfoPrompt.employeeEmail,
+        internInfoPrompt.internName,
+        internInfoPrompt.internId,
+        internInfoPrompt.internEmail,
         internInfoPrompt.internSchool
       );
       internArr.push(buildIntern);
       console.log(internArr);
       if (internInfoPrompt.confirmBool == true) {
-        initPrompt();
+        init();
       }
       break;
     case "Quit":
@@ -114,4 +151,4 @@ const init = async () => {
   }
 };
 
-init();
+managerPromptInit();
