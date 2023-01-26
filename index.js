@@ -5,9 +5,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const genHtml = require("./util/generateHtml");
-const managerCreated = false;
-let engineerArr = [];
-let internArr = [];
+let teamArr = [];
 
 const managerPromptInit = async () => {
   const managerInformationPrompt = await inquirer.prompt([
@@ -38,6 +36,7 @@ const managerPromptInit = async () => {
     managerInformationPrompt.managerEmail,
     managerInformationPrompt.officeNumber
   );
+  teamArr.push(buildManager);
   console.log(buildManager);
   init();
 };
@@ -98,10 +97,11 @@ const init = async () => {
         engineerInfoPrompt.engineerEmail,
         engineerInfoPrompt.engineerGithub
       );
-      engineerArr.push(buildEngineer);
-      console.log(engineerArr);
+      teamArr.push(buildEngineer);
       if (engineerInfoPrompt.confirmBool == true) {
         init();
+      } else {
+        genHtml();
       }
       break;
     case "Intern":
@@ -139,14 +139,16 @@ const init = async () => {
         internInfoPrompt.internEmail,
         internInfoPrompt.internSchool
       );
-      internArr.push(buildIntern);
-      console.log(internArr);
+      teamArr.push(buildIntern);
+      console.log(teamArr);
       if (internInfoPrompt.confirmBool == true) {
         init();
+      } else {
+        genHtml();
       }
       break;
     case "Quit":
-      console.log("generate here");
+      console.log(genHtml(teamArr));
       break;
   }
 };
