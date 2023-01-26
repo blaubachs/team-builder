@@ -82,7 +82,7 @@ const generateTeam = (team) => {
 
 // export function to generate entire page
 module.exports = (team) => {
-  console.log(team);
+  //   console.log(team);
   return `
     <!DOCTYPE html>
 <html lang="en">
