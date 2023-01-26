@@ -9,9 +9,12 @@ const genHtml = require("./util/generateHtml");
 const init = async () => {
   const initPrompt = await inquirer.prompt([
     {
-      type: "input",
-      message: "",
-      name: "",
+      type: "list",
+      message: "What position is this employee in?",
+      choices: ["Manager", "Engineer", "Intern"],
+      name: "employeeType",
     },
   ]);
 };
+
+init();
