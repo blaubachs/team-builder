@@ -1,10 +1,12 @@
 const fs = require("fs");
+const util = require("util");
 const inquirer = require("inquirer");
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const genHtml = require("./util/generateHtml");
+const fsWritePromisify = util.promisify(fs.writeFile);
 let teamArr = [];
 
 const managerPromptInit = async () => {
@@ -101,7 +103,16 @@ const init = async () => {
       if (engineerInfoPrompt.confirmBool == true) {
         init();
       } else {
-        genHtml();
+        await fsWritePromisify(
+          "./generated-page/index.html",
+          genHtml(teamArr),
+          (err) =>
+            err
+              ? console.log(err)
+              : console.log(
+                  "Check the directory './generated-page' for your team page."
+                )
+        );
       }
       break;
     case "Intern":
@@ -144,12 +155,30 @@ const init = async () => {
       if (internInfoPrompt.confirmBool == true) {
         init();
       } else {
-        genHtml();
+        await fsWritePromisify(
+          "./generated-page/index.html",
+          genHtml(teamArr),
+          (err) =>
+            err
+              ? console.log(err)
+              : console.log(
+                  "Check the directory './generated-page' for your team page."
+                )
+        );
       }
       break;
     case "Quit":
       console.log(teamArr);
-      console.log(exportHtml(teamArr));
+      await fsWritePromisify(
+        "./generated-page/index.html",
+        genHtml(teamArr),
+        (err) =>
+          err
+            ? console.log(err)
+            : console.log(
+                "Check the directory './generated-page' for your team page."
+              )
+      );
       break;
   }
 };
