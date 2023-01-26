@@ -168,7 +168,6 @@ const init = async () => {
       }
       break;
     case "Quit":
-      console.log(teamArr);
       await fsWritePromisify(
         "./generated-page/index.html",
         genHtml(teamArr),
