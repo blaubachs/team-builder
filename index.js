@@ -6,6 +6,10 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const genHtml = require("./util/generateHtml");
 
+let managersArr = [];
+let engineerArr = [];
+let internArr = [];
+
 const init = async () => {
   let typeOfEmployeeFlag = "";
   const initPrompt = await inquirer.prompt([
@@ -38,6 +42,20 @@ const init = async () => {
   switch (typeOfEmployeeFlag) {
     case "Manager":
       // run prompt for manager related questions and build manager obj
+      const managerInformationPrompt = await inquirer.prompt([
+        {
+          type: "number",
+          message: "What is the office number for this manager?",
+          name: "officeNumber",
+        },
+      ]);
+      const buildManager = await new Manager(
+        minimumInfoPrompt.employeeName,
+        minimumInfoPrompt.employeeId,
+        minimumInfoPrompt.employeeEmail,
+        managerInformationPrompt.officeNumber
+      );
+      console.log(buildManager);
       break;
     case "Engineer":
       // run prompt for engineer related questionsa and build engineer obj
