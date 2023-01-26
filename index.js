@@ -9,6 +9,7 @@ const genHtml = require("./util/generateHtml");
 const fsWritePromisify = util.promisify(fs.writeFile);
 let teamArr = [];
 
+// init the program prompting the user for the manager's information.
 const managerPromptInit = async () => {
   const managerInformationPrompt = await inquirer.prompt([
     {
@@ -40,9 +41,11 @@ const managerPromptInit = async () => {
   );
   teamArr.push(buildManager);
   console.log(buildManager);
+  // run init() to prompt the user for engineers and interns
   init();
 };
 
+// recursive prompt function to build engineer and intern objects
 const init = async () => {
   let typeOfEmployeeFlag = "";
 
@@ -58,10 +61,8 @@ const init = async () => {
     },
   ]);
 
-  //   const minimumInfoPrompt = await inquirer.prompt([]);
-
   typeOfEmployeeFlag = initPrompt.employeeType;
-  console.log(`Employee type chosen is ${typeOfEmployeeFlag}.`);
+  // console.log(`Employee type chosen is ${typeOfEmployeeFlag}.`);
 
   switch (typeOfEmployeeFlag) {
     case "Engineer":
@@ -101,8 +102,10 @@ const init = async () => {
       );
       teamArr.push(buildEngineer);
       if (engineerInfoPrompt.confirmBool == true) {
+        // If the user says yes to create more employees, run the function again.
         init();
       } else {
+        // Generate page with object created from user inputs.
         await fsWritePromisify(
           "./generated-page/index.html",
           genHtml(teamArr),
@@ -153,8 +156,10 @@ const init = async () => {
       teamArr.push(buildIntern);
       console.log(teamArr);
       if (internInfoPrompt.confirmBool == true) {
+        // If the user says yes to create more employees, run the function again.
         init();
       } else {
+        // Generate page with object created from user inputs.
         await fsWritePromisify(
           "./generated-page/index.html",
           genHtml(teamArr),
