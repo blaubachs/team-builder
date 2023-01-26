@@ -153,7 +153,6 @@ const init = async () => {
         internInfoPrompt.internSchool
       );
       teamArr.push(buildIntern);
-      console.log(teamArr);
       if (internInfoPrompt.confirmBool == true) {
         // If the user says yes to create more employees, run the function again.
         init();
