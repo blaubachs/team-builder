@@ -7,6 +7,7 @@ const Manager = require("./lib/Manager");
 const genHtml = require("./util/generateHtml");
 
 const init = async () => {
+  let typeOfEmployeeFlag = "";
   const initPrompt = await inquirer.prompt([
     {
       type: "list",
@@ -15,6 +16,36 @@ const init = async () => {
       name: "employeeType",
     },
   ]);
+  typeOfEmployeeFlag = initPrompt.employeeType;
+  console.log(`Employee type chosen is ${typeOfEmployeeFlag}.`);
+  const minimumInfoPrompt = await inquirer.prompt([
+    {
+      type: "input",
+      message: "What is this employee's name?",
+      name: "employeeName",
+    },
+    {
+      type: "number",
+      message: "What is this employee's ID?",
+      name: "employeeId",
+    },
+    {
+      type: "input",
+      message: "What is this employee's email?",
+      name: "employeeEmail",
+    },
+  ]);
+  switch (typeOfEmployeeFlag) {
+    case "Manager":
+      // run prompt for manager related questions and build manager obj
+      break;
+    case "Engineer":
+      // run prompt for engineer related questionsa and build engineer obj
+      break;
+    case "Intern":
+      // run prompt for intern related questions and build intern obj
+      break;
+  }
 };
 
 init();
