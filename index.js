@@ -40,7 +40,6 @@ const managerPromptInit = async () => {
     managerInformationPrompt.officeNumber
   );
   teamArr.push(buildManager);
-  console.log(buildManager);
   // run init() to prompt the user for engineers and interns
   init();
 };
