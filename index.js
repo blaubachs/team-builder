@@ -148,7 +148,8 @@ const init = async () => {
       }
       break;
     case "Quit":
-      console.log(genHtml(teamArr));
+      console.log(teamArr);
+      console.log(exportHtml(teamArr));
       break;
   }
 };
