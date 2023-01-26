@@ -14,7 +14,6 @@ If your README is long, add a table of contents to make it easy for users to fin
 - [Contribute](#contribute)
 - [Tests](#tests)
 - [Questions](#questions)
-- [Features](#features)
 
 ## Installation
 
